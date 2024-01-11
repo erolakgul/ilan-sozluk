@@ -1,0 +1,89 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Sozilan.Data.Model.Entry>
+
+@{
+    ViewBag.Title = "Index";
+    var list = Model.Where(x => x.IsActive).ToList();
+    // list.count==11
+}
+
+@*bu blocktan entry içeriği ve giriş zamanı ile kullanıcı ismi gönderiliyor--PartialView *@
+@{
+    int? titleID2 = Model.Select(x => x.TitleID).FirstOrDefault();
+    <div class="pagedList" style="float:right;">
+        @Html.PagedListPager(Model, id => Url.Action("BasliklarPaging", new { id = titleID2 + "-" + id }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    </div>
+}
+
+<ul class="list-unstyled" id="kullaniciEntryListelePartial">
+    <li class="list-unstyled xClosed">
+        @foreach (var item in list)
+        {
+        <li class="list-unstyled">
+            <h3>
+             @{
+                 if (HttpContext.Current.User.Identity.Name.ToString() != "")
+                 {
+                     <a href="~/Users/Home/Basliklar/@item.Title.ID" id="titleID" title="@item.Title.ID">@Html.DisplayFor(model => item.Title.Content)</a>
+                 }
+                 else
+                 {
+                     <a href="~/WebHome/Basliklar/@item.Title.ID" id="titleID" title="@item.Title.ID">@Html.DisplayFor(model => item.Title.Content)</a>
+                 }
+             }
+            </h3>
+        </li>
+            break;
+        }
+        @foreach (var item in list)
+        {
+            <li class="list-unstyled">
+                <h5 id="h5_@item.ID">@Html.DisplayFor(model => item.Content)</h5>
+            </li>
+            <li class="list-unstyled">
+                <span class="text-left">
+                    @Html.Partial("IcerikUpDown", item)
+                </span>
+                @{
+            if (HttpContext.Current.User.Identity.Name.ToString() == item.User.UserName)
+            {
+                // eğer current user kendi sayfasına tıklarsa o entry i silme seçeneğini görebilir
+                <span class="text-center">
+                    <a href="#" title="yorumu taca at!!" onclick="javascript:if(!confirm('Yorumu silmek istediğinize emin misiniz ?'))return false; sil(@item.ID)"><span class="fa fa-soccer-ball-o" id="down_@item.ID"></span></a>
+                </span>
+                    <span class="text-right">
+                        <a href="" id="@item.ID" onclick="upd(@item.ID)" title="@item.Title.Content" data-toggle="modal" data-target="#guncelle"><span class="fa fa-pencil"></span></a>
+                    </span>
+                    @Html.Partial("EntryDuzenlePartial", item)
+            }
+                }
+                <span style="float:right">
+                    @{
+                         var f = item.EntryDate;
+                         string tarih = Convert.ToString(f);
+                         if (item.isUpdated == true) //updated ise 1 olacağından update date leri ekrana alıyoruz
+                         {
+                             @*<a href="~/WebHome/Entry/@item.ID"> @tarih ~ @item.EntryUpdateDate --</a>*@
+                             @Html.ActionLink(tarih + " ~ " + item.EntryUpdateDate, "Entry", new { id = item.ID })
+                         }
+                         else
+                         {
+                             @*<a href="~/WebHome/Entry/@item.ID"> @tarih -- </a>*@
+                             @Html.ActionLink(tarih + " -- ", "Entry", new { id = item.ID })
+                         }
+                  }
+                    @*<a href="~/WebHome/Kullanici/@item.UserID">@item.User.UserName</a>*@
+                    @Html.ActionLink(item.User.UserName, "Kullanici", new { id = item.UserID })
+                </span>
+            </li>
+            <hr />
+        }
+        </li>
+    </ul>
+    @{
+        int? titleID = Model.Select(x => x.TitleID).FirstOrDefault();
+        <div class="pagedList" style="float:right;">
+            @Html.PagedListPager(Model, id => Url.Action("BasliklarPaging", new { id = titleID + "-" + id }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        </div>
+    }

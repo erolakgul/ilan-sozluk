@@ -1,0 +1,65 @@
+﻿.MenuItemHeader
+{
+    background-color:#eff0f1;
+    height:15px;
+    width:208px;
+    color:#3b3b3b;
+    padding:10px;
+    padding-top:8px;
+    font-weight:bold;
+    margin-left:-24px;
+    margin-top:2px;
+    margin-bottom:5px;
+    border: solid 1px #cccccc;
+}
+
+.SearchBox {
+    word-wrap: break-word;
+    position: absolute;
+    width: 208px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    z-index: 9999999;
+    color: #3b3b3b !important;
+    margin-top: 35px;
+    margin-left: -3px;
+    padding: 10px;
+    display: none;
+}
+
+.SearchResultItem {
+    padding: 3px;
+    list-style-type: none;
+}
+
+.SearchResultHead {
+    margin-left: 0px !important;
+}
+
+.SearchResultItemHead {
+    padding: 3px;   
+}
+
+.SearchResultHeadRight {
+    float: right;
+}
+
+.SearchResultHeadLeft {
+    float: left;
+}
+
+.SearchResultHeaderSmallBox {
+    text-align: center;
+    padding-top: 7px;
+}
+
+.SearchImageAvatar {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.SearchImageArrow {
+    vertical-align: middle;
+    margin-top: -3px;
+}

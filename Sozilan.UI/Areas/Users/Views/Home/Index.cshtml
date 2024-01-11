@@ -1,0 +1,22 @@
+﻿@model IList<Sozilan.Data.Model.Title>
+
+@{
+    ViewBag.Title = "Kullanıcı Index";
+    Layout = "~/Areas/Users/Views/Shared/_UserLayout.cshtml";
+}
+<div class="row" style="margin-right:0px !important;margin-left:0px!important;">
+    @Html.Partial("SolFramePartial")
+    <div class="col-lg-9">
+        <ul class="list-unstyled">
+            @foreach (var item in Model)
+            {
+                <li class="list-unstyled">
+                    <h3>@Html.ActionLink(item.Content, "Basliklar", new { id = item.ID })</h3>
+                </li>
+                    @*@Html.Partial("BodyRastgeleUserPartial", item.Entries)*@
+                @Html.Partial("BodyRastgele", item.Entries)
+            }
+        </ul>
+    </div>
+</div>
+

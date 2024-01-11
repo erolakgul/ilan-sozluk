@@ -1,0 +1,59 @@
+﻿@model IList<Sozilan.Data.Model.Message>
+@using Sozilan.Data.DataContext
+@{
+    ViewBag.Title = "Mesajlar Index";
+    Layout = "~/Areas/Users/Views/Shared/_UserLayout.cshtml";
+}
+<div class="row" style="margin-left:0px !important;margin-right:0px!important;">
+    <div class="col-md-4 tbl_msj">
+        <table class="table table-hover">
+            @{
+                using (ManagementSystemContext db = new ManagementSystemContext())
+                {
+                    var d = db.Message.GroupBy(c => c.MesajGUID).ToList();
+
+                    HashSet<string> hs = new HashSet<string>();
+
+                    foreach (var items in d)
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (!hs.Contains(item.MesajGUID)) // true ise işlem yaptırtma
+                            {
+                                if (items.Key == item.MesajGUID)
+                                {
+                                    var s = db.Message.Where(x => x.MesajGUID == items.Key).Select(x => x.Receiving).FirstOrDefault();
+                                    var g = db.Message.Where(x => x.MesajGUID == items.Key).Select(x => x.User.UserName).FirstOrDefault();
+
+                                    if (HttpContext.Current.User.Identity.Name.ToString() != s)
+                                    {
+                                        // alan kişinin ismi yazdırılır
+                                        <tr>
+                                            <td><a href="#" onclick="mesajList('@items.Key')">@s</a> </td>
+                                        </tr>
+                                        hs.Add(items.Key);
+                                    }
+                                    else
+                                    {
+                                        // gönderen kişinin ismi yazdırılır
+                                        <tr>
+                                            <td><a href="#" onclick="mesajList('@items.Key')">@g</a> </td>
+                                        </tr>
+                                        hs.Add(items.Key);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        </table>
+    </div>
+    <div class="col-md-8" id="mesajlarListeler">
+        @*mesajlistelepartial,ajax ile bu kısıma gömülür*@
+        <div class="xClosedM">
+            <p class="text-muted xClosed_p"><i class="fa fa-envelope"></i></p>
+        </div>
+    </div>
+</div>

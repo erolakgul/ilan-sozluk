@@ -1,0 +1,8 @@
+﻿@model IList<Sozilan.Data.Model.Entry>
+
+@foreach (var item in Model)
+{
+    <div class="panel-body">
+        <span><a href="#" onclick="entryLink(@item.ID)">@item.Title.Content</a><span>@Html.DisplayFor(model => item.ID)</span> </span>
+    </div>
+}

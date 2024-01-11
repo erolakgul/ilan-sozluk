@@ -1,0 +1,51 @@
+﻿@model IList<Sozilan.Data.Model.Entry>
+
+@{
+    ViewBag.Title = "Index";
+    var x = Model.Where(a => a.IsActive).OrderByDescending(c => c.UpCount).Take(1);
+}
+
+@*bu blocktan entry içeriği ve giriş zamanı ile kullanıcı ismi gönderiliyor--PartialView *@
+
+@foreach (var item in x)
+{
+    <li class="list-unstyled">
+        <h5 id="h52_@item.ID">@Html.DisplayFor(model => item.Content)</h5>
+    </li>
+    <li class="list-unstyled">
+        <span class="text-left"> @Html.Partial("IcerikUpDown", item) </span>
+        @{
+             if (HttpContext.Current.User.Identity.Name.ToString() == item.User.UserName)
+             {
+                 // eğer current user kendi sayfasına tıklarsa o entry i silme seçeneğini görebilir
+                 <span class="text-center">
+                     <a href="" title="yorumu taca at!!"><span class="fa fa-soccer-ball-o" onclick="javascript:if(!confirm('Yorumu silmek istediğinize emin misiniz ?'))return false; sil(@item.ID)" id="down_@item.ID"></span></a>
+                 </span>
+                     <span class="text-right">
+                         <a href="" id="@item.ID" onclick="upd(@item.ID)" title="@item.Title.Content" data-toggle="modal" data-target="#guncelle"><span class="fa fa-pencil"></span></a>
+                     </span> //js yaz güncelleme için
+                 //entryduzenlepartial a buradan bilgi gider
+                 @Html.Partial("EntryDuzenlePartial", item)
+             }
+        }
+        <span style="float:right">
+            @{
+                var f = item.EntryDate;
+                string tarih = Convert.ToString(f);
+                if (item.isUpdated == true) //updated ise 1 olacağından update date leri ekrana alıyoruz
+                {
+                   @*<a href="~/WebHome/Entry/@item.ID"> @tarih ~ @item.EntryUpdateDate </a>*@
+                    @Html.ActionLink(tarih + " ~ " + item.EntryUpdateDate, "Entry", new { id = item.ID })
+                }
+                else
+                {
+                    @*<a href="~/WebHome/Entry/@item.ID"> @tarih -- </a>*@
+                    @Html.ActionLink(tarih + " -- ", "Entry", new { id = item.ID })
+                }
+}
+            @*<a href="~/WebHome/Kullanici/@item.UserID">@item.User.UserName</a>*@
+            @Html.ActionLink(item.User.UserName, "Kullanici", new { id = item.UserID })
+        </span>
+    </li>
+    <hr />
+}

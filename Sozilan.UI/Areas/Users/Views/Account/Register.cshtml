@@ -1,0 +1,73 @@
+﻿@model Sozilan.Data.Model.User
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Areas/Users/Views/Shared/_UserLayout.cshtml";
+}
+<div class="row center-block">
+    <div class="col-lg-6 col-lg-offset-3">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                Register Panel
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Register", "Account", new { @class = "form-group" }))
+                {
+                    //gruplamamaızın nedeni ikonları düzgün bir şeklde verebilmek
+                    @Html.Label("E-mail")
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @type = "text" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+
+                    @Html.Label("Kullanıcı Adı")
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "UserName", @type = "text" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+
+                    @Html.Label("Şifre")
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Password", @type = "Password" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    
+                    @Html.Label("Şifre Tekrar")
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Password", @type = "Password" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <a href="~/WebHome/Sozlesme">Kullanıcı Sözleşmesi</a> <br /><br />
+                    <span style="color:#f80e32;">Kayıt olunmadan önce,sözleşme okunmuş ve kabul edilmiş sayılır.</span>    <br /><br />
+                    <div class="input-group">
+                        <input type="submit" name="btnLogin" value="Kayıt Ol" class="btn btn-block btn-danger" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

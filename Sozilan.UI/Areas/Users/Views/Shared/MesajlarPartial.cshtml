@@ -1,0 +1,42 @@
+﻿@model IList<Sozilan.Data.Model.Message>
+@*topmenupartial a buradan veri gönderecek*@
+@{
+    var list = Model.Where(x => x.IsActive).OrderByDescending(x => x.ID).ToList();
+}
+
+@{
+    int sayac = 0;
+
+    foreach (var item in list)
+    {
+        if (sayac <= 2)
+        {
+            if (HttpContext.Current.User.Identity.Name != item.User.UserName)
+            {
+                <li class="message-preview">
+                    <a href="~/Users/Message/Index">
+                        <div class="media">
+                            <div class="media-body">
+                                <h5 class="media-heading">
+                                    <strong>@item.User.UserName</strong>
+                                </h5>
+                                <p class="small text-muted"><i class="fa fa-clock-o"></i> @item.SendDate</p>
+                                <p>@item.Content</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <hr />
+                sayac = sayac + 1;
+            }
+        }
+        else
+        {
+            <li class="message-footer">
+                <a href="~/Users/Message/Index" target="_blank"> Mesajların tamamını oku !</a>
+            </li>
+            break;
+        }
+    }
+
+}

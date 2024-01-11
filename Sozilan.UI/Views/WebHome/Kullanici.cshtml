@@ -1,0 +1,82 @@
+﻿@model IList<Sozilan.Data.Model.Entry>
+@{
+    ViewBag.Title = "Kullanıcı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list = Model.Where(x => x.IsActive).OrderByDescending(c => c.EntryUpdateDate).ToList();
+}
+<div class="row">
+    <div class="col-lg-3">
+        @foreach (var item in list)
+        {
+            <span style="padding-left:4px;color:#d07b05;font-weight:bold;font-size:17px;"> 
+                 <i class="fa fa-user"></i> @Html.DisplayFor(model => item.User.UserName)
+            </span>
+            @*if (HttpContext.Current.User.Identity.Name.ToString() != "" && HttpContext.Current.User.Identity.Name.ToString() != item.User.UserName)
+            {
+                <span style="float:right;font-weight:bold;font-size:17px;padding-right:4px;">
+                    <a href="~/Users/Home/Kullanici/@item.User.ID" title="Mesaj Gönder" data-toggle="modal" data-target="#mesajModal"><i class="fa fa-envelope" style="color: #d07b05;"></i></a>
+                </span>
+            }*@
+            break;
+        }
+        <table class="table table-hover" style="border-right:2px solid #ffffff;">
+            @foreach (var item in list)
+            {
+                <tr>
+                    <td><a href="#" onclick="entryLink(@item.ID)">@item.Title.Content</a> </td>
+                    <td>@Html.DisplayFor(model => item.Title.Entries.Count)</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-lg-9">
+        <ul class="list-unstyled" id="kullaniciEntryListele">
+          <li class="list-unstyled xClosed">
+            @foreach (var item in list)
+            {
+                <li class="list-unstyled">
+                    <h3><a href="~/WebHome/Basliklar/@item.Title.ID">@Html.DisplayFor(model => item.Title.Content)</a></h3>
+                </li>
+                <li class="list-unstyled">
+                    <h5 id="h52_@item.ID">@Html.DisplayFor(model => item.Content)</h5>
+                </li>
+                <li class="list-unstyled">
+                    <span class="text-left">
+                        @Html.Partial("IcerikUpDown", item)
+                    </span>
+                    @{
+                if (HttpContext.Current.User.Identity.Name.ToString() == item.User.UserName)
+                {
+                    // eğer current user kendi sayfasına tıklarsa o entry i silme seçeneğini görebilir
+                    <span class="text-center">
+                        <a href="" title="yorumu taca at!!"><span class="fa fa-soccer-ball-o" onclick="javascript:if(!confirm('Yorumu silmek istediğinize emin misiniz ?'))return false; sil(@item.ID)" id="down_@item.ID"></span></a>
+                    </span>
+                        <span class="text-right">
+                            <a href="" id="@item.ID" onclick="upd(@item.ID)" title="@item.Title.Content" data-toggle="modal" data-target="#guncelle"><span class="fa fa-pencil"></span></a>
+                        </span> //js yaz güncelleme için
+                    //entryduzenlepartial a buradan bilgi gider
+                    @Html.Partial("EntryDuzenlePartial", item)
+                }
+                    }
+                    <span style="float:right">
+                        @{
+                           var f = item.EntryDate;
+                           string tarih = Convert.ToString(f);
+                           if (item.isUpdated == true) //updated ise 1 olacağından update date leri ekrana alıyoruz
+                           {
+                               <a href="~/WebHome/Entry/@item.ID"> @tarih ~ @item.EntryUpdateDate </a>
+                           }
+                           else
+                           {
+                               <a href="~/WebHome/Entry/@item.ID"> @tarih -- </a>
+                           }
+                        }
+                        @Html.ActionLink(item.User.UserName, "Kullanici", new { id = item.User.ID })
+                    </span>
+                </li>
+              <hr />
+            }
+            </li>
+        </ul>
+    </div>
+</div>

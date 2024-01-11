@@ -1,0 +1,25 @@
+﻿@model IList<Sozilan.Data.Model.Title>
+@using Sozilan.Data.DataContext
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list = Model.Where(x => x.IsActive).OrderByDescending(y => y.UpdateDate).ToList();
+}
+<div class="row">
+      @Html.Partial("SolFramePartial")
+    <div class="col-lg-9">
+        <ul class="list-unstyled">
+            @foreach (var item in list)
+            {
+                <li class="list-unstyled">
+                    <h3>@Html.ActionLink(item.Content, "Basliklar", new { id = item.ID })</h3>
+                </li>
+                <li class="list-unstyled">
+                    @Html.Partial("BodyRastgele", item.Entries)
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+

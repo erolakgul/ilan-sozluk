@@ -1,0 +1,22 @@
+﻿@*@model IList<Sozilan.Data.Model.Title>*@
+@using PagedList
+@using PagedList.Mvc
+@*@model IPagedList<Sozilan.Data.Model.Title>*@
+@model IPagedList<Sozilan.Data.Model.Entry>
+
+
+@{
+    ViewBag.Title = "Kullanıcı Başlıklar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*admin home başlıklar*@
+<div class="container-fluid">
+    <div class="row">
+        @Html.Partial("SolFramePartial")
+        <div class="col-lg-9">
+            <ul class="list-unstyled">
+                @Html.Partial("Icerik")
+            </ul>
+        </div>
+    </div>
+</div>

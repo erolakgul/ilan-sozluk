@@ -1,0 +1,56 @@
+﻿@*@model Sozilan.UI.Areas.Users.Models.ViewModel.CreateEntry*@
+
+@*@model Sozilan.Data.Model.Entry*@
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<div class="modal-body">
+    @*@using (Html.BeginForm("Kaydet", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divSonuc" }, new { id = "formKapsayici" }))*@
+@using (Html.BeginForm("Kaydet", "Home", new { @class = "form-group" }))
+{
+        @Html.TextBox("txtBaslikId") <br />
+        @Html.TextArea("txtEntry")<br />
+        @Html.TextBox("txtUserID")<br />
+        <input type="submit" value="Kaydet" id="entryKaydet"/>
+    }
+</div>
+
+
+@*@using (Html.BeginForm("Kaydet", "Home", new { @class = "form-group" }))
+{
+
+    <div class="input-group">
+        @Html.TextBoxFor(x => x.Title.Content, new { @class = "form-control", @placeholder = "İlan Başlığı", @type = "text" })
+        <span class="input-group-addon">
+            <i class="fa fa-pencil"></i>
+        </span>
+    </div>
+    <div class="input-group">
+        @Html.ValidationMessageFor(model => model.Title.Content, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="input-group">
+        @Html.TextBoxFor(x => x.Title.ID, new { @class = "form-control", @placeholder = "titleid", @type = "text" })
+        <span class="input-group-addon">
+            <i class="fa fa-link"></i>
+        </span>
+    </div>
+
+    @Html.Label("Başlığa Ait İlk Giri")
+    <div class="input-group">
+
+        @Html.TextAreaFor(x => x.Content, new { @class = "form-control", @placeholder = "Entry Giriniz" })
+        <span class="input-group-addon">
+            <i class="fa fa-pencil"></i>
+        </span>
+    </div>
+    <div class="input-group">
+        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="input-group">
+        <input type="submit" name="btnEntryKaydet" value="KAYDET" class="btn btn-block btn-danger" />
+    </div>
+}*@

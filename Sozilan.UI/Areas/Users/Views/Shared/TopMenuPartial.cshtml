@@ -1,0 +1,49 @@
+﻿@using Sozilan.Data.DataContext
+<!-- Top Menu nün olduğu kısım -->
+<ul class="nav navbar-nav navbar-right top-nav">
+    <li class="active"><a href="/Users">Ana Sayfa</a></li>
+    <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope" id="mesajKutusu"></i> <b class="caret"></b></a>
+            <ul class="dropdown-menu message-dropdown mesajlar">
+                @*bu kısıma ajax ile mesajlarpartial dan veri gelecek*@
+            </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" id="bildirimKutusu"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu alert-dropdown bildirim" style="padding:6px 12px;min-width:400px;">
+            @*bu kısıma ajax ile bildirimler gelecek*@
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user"></i>
+            @*giriş yapan kullanıcının adının alınması*@
+            <span style="color:#00ffff;" id="spanUseName">@HttpContext.Current.User.Identity.Name</span>
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          @using (ManagementSystemContext db = new ManagementSystemContext())
+          {
+              var id =db.User.Where(x=> x.UserName==HttpContext.Current.User.Identity.Name).Select(x=> x.ID).FirstOrDefault();
+              <li>
+                  <a href="~/Users/Home/Kullanici/@id"><i class="fa fa-fw fa-user"></i> Profil</a>
+              </li>
+              db.Dispose();
+          }
+            <li>
+                <a href="~/Users/Message/Index"><i class="fa fa-fw fa-envelope"></i> Mesajlar</a>
+            </li>
+            <li>
+                <a href="~/Users/Home/Sozlesme" target="_blank"><i class="fa fa-fw fa-gear"></i> Sözleşme</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="~/Users/Title/BaslikAc" target="_blank"><i class="fa fa-folder-open"></i> Başlık Aç</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="/Account/SignOut"><i class="fa fa-fw fa-power-off"></i> Çıkış Yap</a>
+            </li>
+        </ul>
+    </li>
+</ul>

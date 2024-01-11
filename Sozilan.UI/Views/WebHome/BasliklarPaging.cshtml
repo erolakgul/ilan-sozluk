@@ -1,0 +1,19 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Sozilan.Data.Model.Entry>
+
+@{
+    ViewBag.Title = "Başlıklar Paging";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        @Html.Partial("SolFramePartial")
+        <div class="col-lg-9">
+            <ul class="list-unstyled">
+                @Html.Partial("Icerik")
+            </ul>
+        </div>
+    </div>
+</div>

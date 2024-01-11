@@ -1,0 +1,10 @@
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\bin\Debug\Sozilan.Data.dll.config
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\bin\Debug\Sozilan.Data.dll
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\bin\Debug\Sozilan.Data.pdb
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\bin\Debug\EntityFramework.dll
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\bin\Debug\EntityFramework.xml
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\obj\Debug\Sozilan.Data.dll
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\obj\Debug\Sozilan.Data.pdb
+C:\Users\atakan\Documents\Visual Studio 2013\Projects\Sozilan\Sozilan.Data\obj\Debug\Sozilan.Data.csprojResolveAssemblyReference.cache

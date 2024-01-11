@@ -1,0 +1,26 @@
+﻿@model Sozilan.Data.Model.Message
+
+ @*mesajlistelepartial a veri sağlar*@
+
+@using (Html.BeginForm("CevapYaz", "Message", new { @class = "form-group" }))
+{
+    <div class="input-group">
+        @Html.TextBoxFor(x => x.UserID, new { @class = "form-control hidden", @type = "text" })
+    </div>
+    <div class="input-group">
+        @Html.TextBoxFor(x => x.ReceivingID, new { @class = "form-control hidden", @type = "text" })
+    </div>
+    <div class="input-group">
+        @Html.TextBoxFor(x => x.Receiving, new { @class = "form-control hidden", @type = "text" })
+    </div>
+    <div class="input-group">
+        @Html.TextBoxFor(x => x.MesajGUID, new { @class = "form-control hidden", @type = "text" })
+    </div>
+    <div class="input-group">
+        @Html.TextAreaFor(x => x.Content, new { @class = "form-control", @placeholder = "Mesaj Gönder", @id = "txtMesajGonder" })
+    </div><br /><br />
+
+    <div class="input-group" style="float:right">
+        <input type="submit" name="btnMesajGonder" value="Mesajı Gönder" class="btn btn-block btn-danger" />
+    </div>
+}

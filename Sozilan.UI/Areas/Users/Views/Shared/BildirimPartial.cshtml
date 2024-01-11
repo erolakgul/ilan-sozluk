@@ -1,0 +1,50 @@
+﻿@model IList<Sozilan.Data.Model.Notification>
+@using Sozilan.Data.DataContext
+
+@{
+    using (ManagementSystemContext db = new ManagementSystemContext())
+    {
+        var user = HttpContext.Current.User.Identity.Name.ToString();
+        int userid = db.User.Where(x => x.UserName == user).Select(x => x.ID).FirstOrDefault();
+
+
+        var list = Model.Where(x => x.IsActive).ToList();
+
+
+        int sayac = 0;
+        foreach (var item in list)
+        {
+
+            if (item.BildirilenID == userid) //sadece bildirim alan kişide red olması için
+            {
+                if (sayac <= 2)
+                {
+                    if (item.EventID == 0) //yani bir beğenme olayı ise
+                    {
+                        <li onclick="BildirimlerOkundu()">
+                            <span style="font-weight:bold;">@item.UserName</span> sizin<a href="~/Users/Home/Entry/@item.EntryID" style="display:inline-block;float:right;"><span class="label label-info">yorumunuzu beğendi.</span></a>
+                        </li>
+                        <li class="divider"></li>
+                    }
+                    else // başlık açılma olayı ise
+                    {
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                    }
+
+                    sayac = sayac + 1;
+                }
+                else
+                {
+                    <li>
+                        <a href="#">Diğer Bildirimler</a>
+                    </li>
+                }
+            }
+        }
+        db.Dispose();
+    }
+}
+

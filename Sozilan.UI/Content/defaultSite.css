@@ -1,0 +1,116 @@
+﻿/*table{
+    font-family:cursive;
+}*/
+
+body {
+    padding-top: 50px;
+    /*padding-bottom: 20px;*/
+    background-color: #fcfcfc; /*d2d4c8  aeaeae f0f0f0*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+h5 {
+    font-family: cursive;
+    word-spacing: 3px;
+    line-height: 20px;
+}
+
+.hakkimizda {
+    background-color: #fcfcfc;
+    border: 2px ridge #ccc;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 60px;
+}
+
+.pagination {
+    margin: -3px 0 !important;
+}
+
+ul.pagination > li a {
+    font-size: 10px;
+}
+
+ul.pagination > li.active a {
+    background-color: #f3ab17 !important;
+}
+
+#aramaButonlari {
+    display: block;
+}
+
+    #aramaButonlari .btn {
+        width: 80px;
+    }
+
+    #aramaButonlari .ss:not(:last-child) {
+        padding-right: 0px !important;
+    }
+
+    #aramaButonlari .ss {
+        padding-left: 3px !important;
+        display: inline-block;
+        padding-top: 3px !important;
+    }
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+hr {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    border-top: 1px solid #9d9a9a;
+}
+
+a {
+    /*#AC9E21 ,, ce9734  ,, d07b05*/
+    color: #2e1515;
+    font-weight: bold;
+}
+
+    a:hover {
+        color: #1fbbee;
+    }
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #aramaButonlari {
+        float: left;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 767px) {
+    #aramaButonlari {
+        float: left;
+    }
+}
+
+@media (max-width: 499px) {
+    #slogan {
+        width: 300px;
+        margin-left: 30px;
+    }
+
+    #aramaButonlari {
+        margin-left: 42px;
+    }
+}
+
+@media (max-width: 399px) {
+
+    #slogan {
+        width: 90%;
+    }
+}

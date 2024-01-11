@@ -1,0 +1,114 @@
+﻿@model IList<Sozilan.Data.Model.Entry>
+@{
+    ViewBag.Title = "Kullanıcı";
+    Layout = "~/Areas/Users/Views/Shared/_UserLayout.cshtml";
+    var list = Model.Where(x => x.IsActive).OrderByDescending(c => c.EntryUpdateDate).ToList();
+}
+<div class="row" style="margin-left:0!important;margin-right:0!important">
+    <div class="col-md-3">
+        @foreach (var item in list)
+        {
+            <span style="padding-left:4px;color:#d07b05;font-weight:bold;font-size:17px;">
+                <i class="fa fa-user"></i> @Html.DisplayFor(model => item.User.UserName)
+            </span>
+            if (HttpContext.Current.User.Identity.Name.ToString() != "" && HttpContext.Current.User.Identity.Name.ToString() != item.User.UserName)
+            {
+                <span style="float:right;font-weight:bold;font-size:17px;padding-right:4px;">
+                    @*~/Users/Message/Index*@
+                    <a href="#" title="Mesaj Gönder" data-toggle="modal" data-target="#mesajModal"><i class="fa fa-envelope" style="color: #d07b05;"></i></a>
+                </span>
+            }
+            break;
+        }
+        <div class="modal fade" id="mesajModal" role="dialog" style="position:page;">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        @{
+                            foreach (var item in list)
+                            {
+                                <h4 class="modal-title text-center" style="font-weight:bold;font-size:17px;color:#d07b05;">
+                                    <span>TO : </span><span id="txtAlanUserName">@item.User.UserName</span>
+                                </h4>
+                                break;
+                            }
+                        }
+                    </div>
+                    <div class="modal-body">
+                        <span id="txtUserName">@HttpContext.Current.User.Identity.Name.ToString()</span>
+                        <textarea id="mesajContent"></textarea><br />
+                        <span class="mesajUyari" style="display:none;"></span>
+                        <input class="btn btn-info" type="submit" value="Gönder" id="mesajGonder" onclick="mesaj()"/>
+                        <span class="numarator" style="float:right">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover" style="border-right:2px solid #ffffff;">
+            @{
+                var diz = list.Where(x => x.IsActive).OrderByDescending(d => d.ID).ToList();
+                foreach (var item in diz)
+                {
+                    <tr>
+                        @*<td><a href="#" onclick="entryLink(@item.ID)">@item.Title.Content</a> </td>*@
+                        <td><a href="#" onclick="entryLink(@item.ID)">@item.Title.Content</a> </td>
+                        <td title="entry numarası">@Html.DisplayFor(model => item.ID)</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="col-md-9">
+        <ul class="list-unstyled" id="kullaniciEntryListele">
+            @*ajaxtan dönen veri burada listelenecek,gelecek olan partialview show,buradaki hide olacak *@
+            <li class="list-unstyled xClosed">
+             @foreach (var item in list)
+               {
+                <li class="list-unstyled">
+                    <h3><a href="~/Users/Home/Basliklar/@item.Title.ID"> @Html.DisplayFor(model => item.Title.Content)</a></h3>
+                </li>
+                    <li class="list-unstyled">
+                        <h5 id="h5_@item.ID">@Html.DisplayFor(model => item.Content)</h5>
+                    </li>
+                    <li class="list-unstyled">
+                        <span class="text-left">
+                            @Html.Partial("IcerikUpDown", item)
+                        </span>
+                        @{
+                            if (HttpContext.Current.User.Identity.Name.ToString() == item.User.UserName)
+                            {
+                                // eğer current user kendi sayfasına tıklarsa o entry i silme seçeneğini görebilir
+                                <span class="text-center">
+                                    <a href="" title="yorumu taca at!!"><span class="fa fa-soccer-ball-o" onclick="javascript:if(!confirm('Yorumu silmek istediğinize emin misiniz ?'))return false; sil(@item.ID)" id="down_@item.ID"></span></a>
+                                </span>
+                                    <span class="text-right">
+                                        <a href="" id="@item.ID" onclick="upd(@item.ID)" title="@item.Title.Content" data-toggle="modal" data-target="#guncelle"><span class="fa fa-pencil"></span></a>
+                                    </span> //js yaz güncelleme için
+                                //entryduzenlepartial a buradan bilgi gider
+                                @Html.Partial("EntryDuzenlePartial", item)
+                            }
+                        }
+                        <span style="float:right">
+                            @{
+                                 var f = item.EntryDate;
+                                 string tarih = Convert.ToString(f);
+                                 if (item.isUpdated == true) //updated ise 1 olacağından update date leri ekrana alıyoruz
+                                 {
+                                     <a href="~/Users/Home/Entry/@item.ID"> @tarih ~ @item.EntryUpdateDate </a>
+                                 }
+                                 else
+                                 {
+                                     <a href="~/Users/Home/Entry/@item.ID"> @tarih -- </a>
+                                 }
+                            }
+                            @Html.ActionLink(item.User.UserName, "Kullanici", new { id = item.User.ID })
+                        </span>
+                    </li>
+                    <hr />
+                }
+                </li>
+            </ul>
+        </div>
+    </div>

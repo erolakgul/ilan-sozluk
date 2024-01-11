@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+@model  Sozilan.UI.Areas.Users.Models.ViewModel.LoginModel
+@using System.Web.Optimization
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/bundles/admin/styles")
+    @Scripts.Render("~/bundles/admin/scripts")
+    <style>
+        body {
+            background: url(/Areas/Users/Images/background_image.jpg) no-repeat center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row center-block" style="margin-top:10%;">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Login Panel
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm(new { @class = "form-group" }))
+                        {
+                            //gruplamamaızın nedeni ikonları düzgün bir şeklde verebilmek
+                            @Html.DisplayNameFor(x => x.UserName)
+                            <div class="input-group">
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Type Text Format", @type = "text" ,@id="username0"}) @*@type ="email" idi önce *@
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            </div>
+                           <br />
+                            @Html.DisplayNameFor(x => x.Password)
+                            <div class="input-group">
+                                @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Type Password Format", @type = "Password" })
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <input type="submit" name="btnLogin" class="btn btn-default" value="Giriş Yap" />
+                            </div>
+                        }
+                    </div>
+                    <div class="panel-footer">
+                        <a href="#" class="btn btn-block btn-info" onclick="ReminderMe()">Parolamı Unuttum</a>
+                        <a href="~/Users/Account/Register" class="btn btn-block btn-danger">Yeni Kayıt Oluştur</a>
+                        <br /><br />
+                        <a href="/" class="btn btn-block btn-success">Girme,Anasayfaya Götür Beni!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

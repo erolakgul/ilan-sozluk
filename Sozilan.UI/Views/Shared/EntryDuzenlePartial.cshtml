@@ -1,0 +1,24 @@
+﻿@model Sozilan.Data.Model.Entry
+
+<!-- Modal -->
+<div class="modal fade" id="guncelle" role="dialog" style="margin-top:6%;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            @using (Html.BeginForm("Duzenle", "Home", new { @class = "form-group",@area = "Users"}))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    @Html.TextBoxFor(x => x.ID, new { @class = "hidden", @id = "bid2" })
+                    <h4 id="h4Duzenle2" class="model-title text-center h4Duzenle"></h4>
+                </div>
+                <div class="modal-body">
+                    @Html.TextAreaFor(x => x.Content, new { @class = "form-control", @type = "text", @id = "entryContent2" })
+                    <br />
+                    <input type="submit" value="Güncelle" class="btn btn-info" id="btnDuzenleEntry2" />
+                </div>
+                <br />
+            }
+        </div>
+    </div>
+</div>

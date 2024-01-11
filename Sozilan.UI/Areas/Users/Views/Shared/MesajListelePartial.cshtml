@@ -1,0 +1,45 @@
+﻿@model IList<Sozilan.Data.Model.Message>
+
+@{
+    var list = Model.OrderBy(x => x.ID).ToList();
+}
+<table class="table" id="mesajlarXClosed">
+    @{
+        HashSet<DateTime> hs=new HashSet<DateTime>();
+        
+        foreach (var item in list)
+        {
+
+            if (!hs.Contains(@item.SendDate.Date))
+            {
+                <tr>
+                    <td class="text-center" style="font-size:10px;font-weight:bold;"> @item.SendDate.Date.ToShortDateString()</td>
+                </tr>
+            }
+            
+            if (HttpContext.Current.User.Identity.Name.ToString() == @item.User.UserName)
+            {
+                <tr>
+                    <td class="text-right" style="background:linear-gradient(#4add9e,#ffffff);border-radius:30px;" title="@item.SendDate">
+                        @item.Content
+                    </td>
+                </tr>
+                hs.Add(@item.SendDate.Date);
+            }
+            else
+            {
+                <tr>
+                    <td style="background:linear-gradient(#e99c10,#ffffff);border-radius:30px;" title="@item.SendDate">@item.Content</td>
+                </tr>
+                hs.Add(@item.SendDate.Date);
+            }
+        }
+
+    }
+</table>
+
+    @foreach (var item in list)
+    {
+        @Html.Partial("MesajYazPartial", item);
+            break;
+    }

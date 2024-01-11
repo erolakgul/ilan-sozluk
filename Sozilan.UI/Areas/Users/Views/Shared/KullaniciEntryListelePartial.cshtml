@@ -1,0 +1,46 @@
+﻿@model IList<Sozilan.Data.Model.Entry>
+
+@{
+    var list = Model.Where(x => x.IsActive).OrderByDescending(c => c.EntryUpdateDate).ToList();
+}
+
+@foreach (var item in list)
+{
+    //var isim = @Html.DisplayFor(model => item.User.UserName);
+
+    <li class="list-unstyled">
+        <h3><a href="~/Users/Home/Basliklar/@item.Title.ID"> @Html.DisplayFor(model => item.Title.Content)</a></h3>
+    </li>
+    <li class="list-unstyled">
+        <h5>@Html.DisplayFor(model => item.Content)</h5>
+    </li>
+    <li class="list-unstyled">
+        <span class="text-left">
+            @Html.Partial("IcerikUpDown", item)
+        </span>
+        @{
+    if (HttpContext.Current.User.Identity.Name.ToString() == item.User.UserName)
+    {
+        // eğer current user kendi sayfasına tıklarsa o entry i silme seçeneğini görebilir
+        <span class="text-center">
+            <a href="#" title="yorumu taca at!!" onclick="javascript:if(!confirm('Yorumu silmek istediğinize emin misiniz ?'))return false; sil(@item.ID)"><span class="fa fa-soccer-ball-o" id="down_@item.ID"></span></a>
+        </span>
+            <span class="text-right">
+                <a href="" id="@item.ID" onclick="upd(@item.ID)" title="@item.Title.Content" data-toggle="modal" data-target="#guncelle"><span class="fa fa-pencil"></span></a>
+            </span> //js yaz güncelleme için
+        //entryduzenlepartial a buradan bilgi gider
+        @Html.Partial("EntryDuzenlePartial", item)
+    }
+        }
+        <span style="float:right">
+            @{
+    var f = item.EntryDate;
+    string tarih = Convert.ToString(f);
+            }
+            @Html.ActionLink(tarih, "Entry", new { @id = item.ID });
+            --
+            @Html.ActionLink(item.User.UserName, "Kullanici", new { id = item.User.ID });
+        </span>
+    </li>
+    <hr />
+}

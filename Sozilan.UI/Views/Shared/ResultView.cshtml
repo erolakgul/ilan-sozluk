@@ -1,0 +1,32 @@
+﻿@model Sozilan.UI.Models.Service.TitleView
+
+@using Sozilan.UI.Models.Service
+@using Sozilan.Data.Model
+
+<h2>Bunu mu demek istediniz ?</h2>
+
+<div>
+    <ul class='list-unstyled'>
+        @foreach (var item in Model.TitleList)
+        {
+                <li class='list-unstyled'>
+                    @{
+                string[] abc = @Model.SearchKey.Split('-');
+                string a = abc[1];
+                    }
+
+                    <a href="~/WebHome/Basliklar/@item.ID">
+                        @Html.Raw(item.Content.Replace(a, "<b><font color='#990066'>" + a + "</font></b>")
+                                             .Replace(HtmlHelperExtensions.UppercaseFirst(a), "<b><font color='#990066'>" + HtmlHelperExtensions.UppercaseFirst(a) + "</font></b>")
+                                             .Replace(a.ToLower(), "<b><font color='#990066'>" + a.ToLower() + "</font></b>")
+                                             .Replace(a.ToUpper(), "<b><font color='#990066'>" + a.ToUpper() + "</font></b>")
+                                             .Replace(HtmlHelperExtensions.UppercaseFirst(a.ToLower()), "<b><font color='#990066'>" + HtmlHelperExtensions.UppercaseFirst(a.ToLower()) + "</font></b>")
+                                             .Replace(HtmlHelperExtensions.UppercaseFirst(a.ToUpper()), "<b><font color='#990066'>" + HtmlHelperExtensions.UppercaseFirst(a.ToUpper()) + "</font></b>")
+                                           )
+                    </a>
+                    @*<span style="float:right">--Başvuru Linki <a href="@item.TitleLink" target="_blank"><i class="fa fa-link"></i> </a> </span>*@           
+                    <span style="float:right">--Başvuru Linki <a href="@item.TitleLink" target="_blank"><i class="fa fa-link"></i> </a> </span>           
+                </li>        
+        }
+    </ul>
+</div>

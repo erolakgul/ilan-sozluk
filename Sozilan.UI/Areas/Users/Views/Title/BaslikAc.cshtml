@@ -1,0 +1,69 @@
+﻿@model Sozilan.UI.Areas.Users.Models.ViewModel.CreateTitle
+
+@{
+    ViewBag.Title = "BaslikAc";
+    Layout = "~/Areas/Users/Views/Shared/_UserLayout.cshtml";
+}
+<div class="row center-block">
+    <div class="col-lg-6 col-lg-offset-3">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                Title Panel
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("BaslikAc","Title",new { @class = "form-group" }))
+                {
+                    //gruplamamaızın nedeni ikonları düzgün bir şeklde verebilmek
+                    
+                    @Html.Label("Başlık İçeriği") <span> (Firma Adı + İlan Başlığı) </span>
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x._content, new { @class = "form-control", @placeholder = "Firma Adı + İlan Başlığı", @type = "text" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        @Html.ValidationMessageFor(model => model._content, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+
+                    @Html.Label("Etiket Seçimi")
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x._titleTag,null,htmlAttributes : new { @class = "form-control" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-ticket"></i>
+                        </span>
+                    </div><br />
+
+                    @Html.Label("Link")
+                    <div class="input-group">  @*textboxfor*@
+                        @Html.TextBoxFor(x => x._titleLink, new { @class = "form-control", @placeholder = "Linki bu kısma kopyalayınız", @type = "text" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-link"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        @Html.ValidationMessageFor(model => model._titleLink, "", new { @class = "text-danger" })
+                    </div><br />
+
+                    @Html.Label("Başlığa Ait İlk Giri")
+                    <div class="input-group"> @*TextAreaFor*@
+                        @Html.TextAreaFor(x => x._entryContent, new { @class = "form-control", @placeholder = "Entry Giriniz" })
+                        <span class="input-group-addon">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        @Html.ValidationMessageFor(model => model._entryContent, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+
+                    <div class="input-group">
+                        <input type="submit" name="btnLogin" value="Başlığı KAYDET" class="btn btn-block btn-danger" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

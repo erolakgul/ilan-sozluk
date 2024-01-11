@@ -1,0 +1,99 @@
+﻿
+
+#mesajlarXClosed , #txtMesajGonder {font-family:cursive;}
+.message-dropdown {margin-top:6px !important;}
+
+body {
+    background-color: #fcfcfc; /*d2d4c8  aeaeae  f0f0f0*/
+    /*min-width:400px !important;*/
+}
+
+h5 {
+    font-family: cursive;
+    word-spacing: 3px;
+    line-height: 20px;
+}
+.hakkimizda {
+    background-color: #fcfcfc;
+    border: 2px ridge #ccc;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 60px;
+}
+
+.body-content {
+    /*background-color:white;*/
+}
+
+hr {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    border-top: 1px solid #9d9a9a;
+}
+
+a {
+    /*#AC9E21 ,, ce9734  ,, d07b05*/
+    color: #2e1515;
+    font-weight: bold;
+}
+
+    a:hover {
+        color: #1fbbee;
+        text-decoration: none !important;
+    }
+
+.pagination {
+    margin: -3px 0 !important;
+}
+
+ul.pagination > li a {
+    font-size: 10px;
+}
+
+ul.pagination > li.active a {
+    background-color: #f3ab17 !important;
+}
+
+#aramaButonlari {
+    display:block;
+}
+#aramaButonlari .btn {
+    width:80px;
+}
+#aramaButonlari .ss:not(:last-child){
+    padding-right:0px!important;
+}
+#aramaButonlari .ss {
+   padding-left:3px !important;
+   display:inline-block;
+   padding-top:3px !important;
+}
+
+/*.tbl_msj{border-right:2px solid #242222;}*/
+.xClosedM{background: linear-gradient(#4add9e,#ffffff);}
+.xClosed_p{line-height:400px;font-size:400px;margin-left:27%;}
+
+@media (min-width: 1200px) {
+    /*.xClosed_p{font-size:290px;}*/
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    /*.xClosed_p{font-size:240px;}*/
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #aramaButonlari { float: left;}
+    .tbl_msj{border-right:0px}
+    /*.xClosed_p{ font-size:250px}*/
+}
+
+@media (min-width: 500px) and (max-width: 767px) {
+    #aramaButonlari { float: left; } 
+    .xClosed_p{font-size:200px;margin-left:30%;}
+}
+
+@media (max-width: 499px) {
+    #slogan {width:85%;margin-left:30px;}
+    #aramaButonlari{margin-left:42px;}
+    .xClosed_p{font-size:150px;margin-left:25%;}
+
+}
